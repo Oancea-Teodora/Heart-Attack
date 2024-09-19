@@ -417,22 +417,10 @@ def predict():
             'slope': slope,
             'ca': ca,
             'thal': thal,
-            'trtbps': trtbps,
-            'oldpeak': oldpeak
+            'trtbps_winsorize': trtbps,
+            'oldpeak_winsorize_sqrt': oldpeak
         }
         df_input = pd.DataFrame([input_data])
-
-        # Apply Winsorization and transformations
-        df_input['trtbps_winsorize'] = winsorize([trtbps], (0, 0.05))[0]
-        df_input['oldpeak_winsorize_sqrt'] = np.sqrt(winsorize([oldpeak], (0, 0.05))[0])
-
-        # Drop original columns (or other pre-processing steps)
-        df_input.drop(['trtbps', 'oldpeak'], axis=1, inplace=True)
-
-        # Ensure you apply the same feature engineering as during training
-        # One-hot encode the input data as per your model's requirements
-        # Use a consistent method like pd.get_dummies() to match the model
-
         # Predict using the model
         prediction = log_reg.predict(df_input)[0]
 
@@ -441,7 +429,8 @@ def predict():
         return jsonify(result)
 
     except Exception as e:
-        return str(e)
+        print("Error:", str(e))
+        return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
