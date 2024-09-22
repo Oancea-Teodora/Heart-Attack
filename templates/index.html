@@ -5,102 +5,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Cursive, sans-serif;
+            color: white;
             margin: 0;
             padding: 0;
             position: relative;
             min-height: 100vh;
-            background-image: url('../static/background.png'); /* Add your image path here */
-            background-size: cover; /* Ensures the image covers the entire background */
-            background-position: center; /* Centers the background image */
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Keeps the background image fixed in place */
+            background-color: white;
+            scroll-behavior: smooth; /* Enables smooth scrolling */
         }
+        /* Menu Styles */
+        .menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: left;
+            padding: 10px 0;
+            z-index: 100; /* Ensure menu stays on top */
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 22px;
+            transition: color 0.3s ease;
+        }
+        .menu a:hover {
+            color: #ddd;
+        }
+        /* Image Styling */
+        .full-screen-image {
+            width: 100%;
+            height: 100vh; /* Set height to auto to maintain aspect ratio */
+            object-fit: cover; /* Change to contain to prevent cropping */
+            margin: 0; /* Remove margin */
+            padding: 0; /* Remove padding */
+            display: block; /* Ensure no space is left */
+        }
+        /* Content Section */
         .content {
+            position: relative;
             padding: 20px;
-            margin-top: 1000px; /* Adjust this value to push the content down */
-            z-index: 1; /* Ensures content appears above other elements */
-            background-color: white; /* Optional: adds a background color to make content more readable */
-            max-width: 800px; /* Optional: limits the width of the content */
-            margin-left: auto;
-            margin-right: auto; /* Centers the content horizontally */
+            background-color: transparent;
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2; /* Ensures the form is above the image */
+        }
+        /* Second Image below */
+        .form-background {
+            background-image: url('../static/gradient3.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%; /* Full-screen height */
+            margin: 0; /* Remove margin */
+            padding: 0; /* Remove padding */
+            display: flex;
+            align-items: center; /* Centers the form vertically */
+            justify-content: center; /* Centers the form horizontally */
         }
         .form-group {
             margin-bottom: 15px;
         }
         .form-group label {
             display: block;
+            color: white;
         }
         .form-group input {
-            width: 100%; /* Adjust input width to fit the content */
+            width: 100%;
             padding: 8px;
+            background-color: rgba(255, 255, 255, 0.44);
         }
         button {
             padding: 10px 15px;
-            background-color: blue;
+            background-color: rgba(79, 23, 220, 0.68);
             color: white;
             border: none;
             cursor: pointer;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+
+        /* Progress bar styles */
+        #progress-bar-container {
+            text-align: center;
+            display: none;
+        }
+        #progress-bar {
+            width: 0;
+            height: 30px;
+            background-color: green;
+            border-radius: 20px;
         }
     </style>
 </head>
 <body>
 
-<div class="content">
-    <h1>Heart Attack Risk Prediction</h1>
+<!-- Navigation Menu -->
+<div class="menu">
+    <a href="#home">Home</a>
+    <a href="#prediction">Prediction</a>
+</div>
 
-    <form id="prediction-form">
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required>
-        </div>
-        <div class="form-group">
-            <label for="sex">Sex (0 = Female, 1 = Male):</label>
-            <input type="number" id="sex" name="sex" required>
-        </div>
-        <div class="form-group">
-            <label for="cp">Chest Pain Type (0 = Asymptomatic, 1 = Typical Angina, 2 = Atypical Angina, 3 = Non-anginal Pain):</label>
-            <input type="number" id="cp" name="cp" required>
-        </div>
-        <div class="form-group">
-            <label for="thalach">Maximum Heart Rate Achieved:</label>
-            <input type="number" id="thalach" name="thalach" required>
-        </div>
-        <div class="form-group">
-            <label for="exang">Exercise Induced Angina (0 = No, 1 = Yes):</label>
-            <input type="number" id="exang" name="exang" required>
-        </div>
-        <div class="form-group">
-            <label for="slope">Slope of the Peak Exercise ST Segment (0 = Downsloping, 1 = Flat, 2 = Upsloping):</label>
-            <input type="number" id="slope" name="slope" required>
-        </div>
-        <div class="form-group">
-            <label for="ca">Number of Major Vessels (0-3):</label>
-            <input type="number" id="ca" name="ca" required>
-        </div>
-        <div class="form-group">
-            <label for="thal">Thalassemia Type (1 = Fixed Defect, 2 = Normal, 3 = Reversible Defect):</label>
-            <input type="number" id="thal" name="thal" required>
-        </div>
-        <div class="form-group">
-            <label for="trtbps">Resting Blood Pressure (in mm Hg):</label>
-            <input type="number" id="trtbps" name="trtbps" required>
-        </div>
-        <div class="form-group">
-            <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest (e.g., 0.0-5.0):</label>
-            <input type="number" step="0.1" id="oldpeak" name="oldpeak" required>
+<!-- Full Screen Image -->
+<div id="home">
+    <img src="../static/background4.png" alt="Full screen image" class="full-screen-image">
+</div>
+
+<!-- Form Section with Image in Background -->
+<div id="prediction" class="form-background">
+    <div class="content">
+        <h1>Introduce below your personal data</h1>
+
+        <form id="prediction-form">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex (0 = Female, 1 = Male):</label>
+                <input type="number" id="sex" name="sex" required>
+            </div>
+            <div class="form-group">
+                <label for="cp">Chest Pain Type (0 = Asymptomatic, 1 = Typical Angina, 2 = Atypical Angina, 3 = Non-anginal Pain):</label>
+                <input type="number" id="cp" name="cp" required>
+            </div>
+            <div class="form-group">
+                <label for="thalach">Maximum Heart Rate Achieved:</label>
+                <input type="number" id="thalach" name="thalach" required>
+            </div>
+            <div class="form-group">
+                <label for="exang">Exercise Induced Angina (0 = No, 1 = Yes):</label>
+                <input type="number" id="exang" name="exang" required>
+            </div>
+            <div class="form-group">
+                <label for="slope">Slope of the Peak Exercise ST Segment (0 = Downsloping, 1 = Flat, 2 = Upsloping):</label>
+                <input type="number" id="slope" name="slope" required>
+            </div>
+            <div class="form-group">
+                <label for="ca">Number of Major Vessels (0-3):</label>
+                <input type="number" id="ca" name="ca" required>
+            </div>
+            <div class="form-group">
+                <label for="thal">Thalassemia Type (1 = Fixed Defect, 2 = Normal, 3 = Reversible Defect):</label>
+                <input type="number" id="thal" name="thal" required>
+            </div>
+            <div class="form-group">
+                <label for="trtbps">Resting Blood Pressure (in mm Hg):</label>
+                <input type="number" id="trtbps" name="trtbps" required>
+            </div>
+            <div class="form-group">
+                <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest (e.g., 0.0-5.0):</label>
+                <input type="number" step="0.1" id="oldpeak" name="oldpeak" required>
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Progress Bar Section -->
+        <div id="progress-bar-container">
+            <h3>Processing Prediction...</h3>
+            <div style="width: 100%; background-color: #ddd; border-radius: 20px; margin-bottom: 15px;">
+                <div id="progress-bar"></div>
+            </div>
         </div>
 
-        <button type="submit">Predict</button>
-    </form>
-
-    <h2>Prediction Result:</h2>
-    <div id="result"></div>
+        <h2>Prediction Result:</h2>
+        <div id="result"></div>
+    </div>
 </div>
 
 <script>
     document.getElementById('prediction-form').addEventListener('submit', function(e) {
         e.preventDefault();  // Prevent the form from submitting the usual way
+
+        // Show the progress bar
+        var progressBar = document.getElementById('progress-bar');
+        var progressBarContainer = document.getElementById('progress-bar-container');
+        progressBarContainer.style.display = 'block'; // Show the progress bar container
+
+        // Reset the progress bar
+        progressBar.style.width = '0%';
+
+        var progress = 0;
+        var progressInterval = setInterval(function() {
+            if (progress < 90) {  // Increment until 90% to simulate waiting
+                progress += 10;
+                progressBar.style.width = progress + '%';
+            } else {
+                clearInterval(progressInterval);
+            }
+        }, 300);  // Increment the progress every 300 milliseconds (0.3 seconds)
+
         var formData = new FormData(this);
 
         fetch('/predict', {
@@ -114,11 +213,29 @@
             return response.json();
         })
         .then(data => {
+            // Clear the progress bar once the prediction result is received
+            clearInterval(progressInterval);
+
+            // Simulate a 100% progress completion
+            progressBar.style.width = '100%';
+
+            // Hide the progress bar after a short delay
+            setTimeout(function() {
+                progressBarContainer.style.display = 'none';
+                progressBar.style.width = '0%';
+            }, 500);
+
             // Display the prediction result
             document.getElementById('result').innerText = data.prediction;
         })
         .catch(error => {
             console.error('Error:', error);
+
+            // Hide the progress bar in case of an error
+            clearInterval(progressInterval);
+            progressBarContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+
             document.getElementById('result').innerText = 'An error occurred: ' + error.message;
         });
     });
