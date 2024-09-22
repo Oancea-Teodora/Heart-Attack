@@ -1,6 +1,6 @@
-body {
+ body {
             font-family: Cursive, sans-serif;
-            color: white;
+            color: #e4b0e3f2;
             margin: 0;
             padding: 0;
             position: relative;
@@ -49,7 +49,7 @@ body {
         }
         /* Second Image below */
         .form-background {
-            background-image: url('gradient3.png');
+            background-image: url('../static/gradient3.png');
             background-size: cover;
             background-position: top center;
             background-repeat: no-repeat;
@@ -65,7 +65,7 @@ body {
         }
         .form-group label {
             display: block;
-            color: white;
+            color: rgb(239, 193, 238);
         }
         .form-group input {
             width: 100%;
@@ -94,4 +94,42 @@ body {
             height: 30px;
             background-color: rgb(230, 138, 255);
             border-radius: 20px;
+        }
+
+        /* Documentation Section Styling */
+         #documentation {
+            padding: 40px;
+            background-image: url('../static/documentation.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+
+        #documentation::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0); /* Semi-transparent overlay for readability */
+            z-index: -1; /* Ensures the overlay is behind the content */
+        }
+        #documentation h3 {
+            color: #ea9ce8;
+        }
+        #documentation p, #documentation ul {
+            color: #efc1ee;
+        }
+        #documentation ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #documentation ul li::before {
+            content: '• ';
+            color: #ea9ce8;
         }

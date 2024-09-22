@@ -1,4 +1,4 @@
-document.getElementById('prediction-form').addEventListener('submit', function(e) {
+    document.getElementById('prediction-form').addEventListener('submit', function(e) {
         e.preventDefault();  // Prevent the form from submitting the usual way
 
         // Show the progress bar
