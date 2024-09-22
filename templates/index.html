@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Cursive, sans-serif;
-            color: white;
+            color: #e4b0e3f2;
             margin: 0;
             padding: 0;
             position: relative;
@@ -71,7 +71,7 @@
         }
         .form-group label {
             display: block;
-            color: white;
+            color: rgb(239, 193, 238);
         }
         .form-group input {
             width: 100%;
@@ -101,6 +101,45 @@
             background-color: rgb(230, 138, 255);
             border-radius: 20px;
         }
+
+        /* Documentation Section Styling */
+         #documentation {
+            padding: 40px;
+            background-image: url('../static/documentation.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+
+        #documentation::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0); /* Semi-transparent overlay for readability */
+            z-index: -1; /* Ensures the overlay is behind the content */
+        }
+        #documentation h3 {
+            color: #ea9ce8;
+        }
+        #documentation p, #documentation ul {
+            color: #efc1ee;
+        }
+        #documentation ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #documentation ul li::before {
+            content: '• ';
+            color: #ea9ce8;
+        }
+
     </style>
 </head>
 <body>
@@ -109,6 +148,7 @@
 <div class="menu">
     <a href="#home">Home</a>
     <a href="#prediction">Prediction</a>
+    <a href="#documentation">Documentation</a> <!-- New link -->
 </div>
 
 <!-- Full Screen Image -->
@@ -178,6 +218,57 @@
         <div id="result"></div>
     </div>
 </div>
+
+<!-- Documentation Section -->
+<!-- Documentation Section -->
+<div id="documentation" style="padding: 20px; background-color: white; text-align: center;">
+    <h1>Documentation: Input Data Guide</h1>
+    <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+        <h3>1. Age</h3>
+        <p>The age of the person in years. Heart attack risk increases with age.</p>
+
+        <h3>2. Sex</h3>
+        <p>0: Female, 1: Male. Men are generally at higher risk, especially at younger ages.</p>
+
+        <h3>3. Chest Pain Type (CP)</h3>
+        <ul>
+            <li>0: Asymptomatic – No symptoms</li>
+            <li>1: Typical Angina – Pain with exertion</li>
+            <li>2: Atypical Angina – Pain without exertion</li>
+            <li>3: Non-anginal Pain – Pain not related to the heart</li>
+        </ul>
+
+        <h3>4. Maximum Heart Rate (Thalach)</h3>
+        <p>The highest heart rate achieved during exercise. A lower rate can indicate heart issues.</p>
+
+        <h3>5. Exercise-Induced Angina (Exang)</h3>
+        <p>0: No angina, 1: Angina during exercise. Chest pain during exercise can indicate blocked arteries.</p>
+
+        <h3>6. ST Segment Slope (Slope)</h3>
+        <ul>
+            <li>0: Downsloping – Sign of worsening heart conditions</li>
+            <li>1: Flat – Possible concern</li>
+            <li>2: Upsloping – Typically normal</li>
+        </ul>
+
+        <h3>7. Major Vessels (Ca)</h3>
+        <p>Number of major coronary arteries (0-3) visible via imaging. More vessels visible often means higher risk.</p>
+
+        <h3>8. Thalassemia (Thal)</h3>
+        <ul>
+            <li>1: Fixed Defect – Permanent heart defect</li>
+            <li>2: Normal – No defect</li>
+            <li>3: Reversible Defect – Temporary heart issue under stress</li>
+        </ul>
+
+        <h3>9. Resting Blood Pressure (Trtbps)</h3>
+        <p>The person's blood pressure at rest. High blood pressure is a major risk factor for heart disease.</p>
+
+        <h3>10. ST Depression (Oldpeak)</h3>
+        <p>ST depression during exercise, compared to rest. Higher values can indicate poor blood flow to the heart.</p>
+    </div>
+</div>
+
 
 <script>
     document.getElementById('prediction-form').addEventListener('submit', function(e) {
