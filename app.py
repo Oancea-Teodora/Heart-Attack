@@ -40,7 +40,7 @@ def predict():
         import matplotlib.pyplot as plt
         import seaborn as sns
 
-        df = pd.read_csv("C:/Users/teodo/Desktop/Heart Attack Prediction Project/Heart Attack/Heart Attack/heart.csv")
+        df = pd.read_csv("heart.csv")
 
         new_col = ["age", "sex", "cp", "trtbps", "chol", "fbs", "rest_ecg", "thalach", "exang", "oldpeak", "slope",
                    "ca", "thal", "target"]
