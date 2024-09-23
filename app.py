@@ -1,4 +1,5 @@
-import export
+import random
+
 from flask import Flask, render_template, request, jsonify
 import numpy as np
 import pandas as pd
@@ -251,8 +252,6 @@ def predict():
         from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import accuracy_score
 
-        client = Groq(api_key=os.environ.get("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"))
-
         log_reg = LogisticRegression()
         log_reg.fit(X_train, y_train)
         from sklearn.model_selection import cross_val_score
@@ -296,13 +295,43 @@ def predict():
         df_input = pd.DataFrame([input_data])
         # Predict using the model
         prediction = log_reg.predict(df_input)[0]
+        # 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
+       # client = Groq(api_key=os.environ.get("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"))
+       # client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
+        high_risk = [
+            "As you are at high risk of a heart attack, staying active is crucial. Aim for at least 150 minutes of moderate exercise each week.",
+            "Given your high risk, focus on a heart-healthy diet rich in fruits, vegetables, whole grains, and lean proteins.",
+            "Limit your intake of salt, sugar, and saturated fats to help manage your risk of heart attack.",
+            "Stay hydrated! Drinking plenty of water is important, especially with your high risk.",
+            "Regularly monitor your blood pressure, as it’s essential to keep it within a healthy range given your situation.",
+            "Avoid smoking and limit alcohol consumption to significantly reduce your heart attack risk.",
+            "Manage stress through relaxation techniques like meditation or yoga, especially since stress can impact heart health.",
+            "Make sure to get regular check-ups with your healthcare provider to stay informed about your health, considering your high risk.",
+            "Maintaining a healthy weight is important for you; balance calories in with calories out.",
+            "Stay connected with loved ones for support, as mental health plays a vital role in managing your heart health risk."
+        ]
+
+        low_risk = [
+            "You have a low risk of heart attack! Keep up your active lifestyle to maintain this.",
+            "With your low risk, continue enjoying a balanced diet rich in fruits, vegetables, and whole grains for heart health.",
+            "Since you have low risk, stay mindful of your salt and sugar intake to keep it that way.",
+            "Great job staying hydrated! Drinking plenty of water supports your overall health and heart.",
+            "Regular check-ups are still important to monitor your health, even with your low risk.",
+            "Celebrate your healthy habits! Not smoking and moderating alcohol consumption help keep your risk low.",
+            "Stay active! Regular exercise is key to maintaining your low risk of heart attack.",
+            "Even with low risk, manage stress effectively, as it can impact your heart health over time.",
+            "Maintaining a healthy weight is important to support your well-being and keep your risk low.",
+            "Keep nurturing your social connections; they’re beneficial for your mental and heart health!"
+        ]
 
         if prediction == 1:
-            prompt="Generate a short message for someone at high risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
+            prompt=random.choice(high_risk)
+            #prompt="Generate a short message for someone at high risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
         else:
-            prompt="Generate a short message for someone at low risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
-
+            prompt=random.choice(low_risk)
+            #prompt="Generate a short message for someone at low risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
+        '''
         chat_completion = client.chat.completions.create(
         messages=[
         {
@@ -312,15 +341,17 @@ def predict():
         model = "llama3-8b-8192",
         )
         res= chat_completion.choices[0].message.content.strip()
+        '''
+        result = {'prediction': prompt}
 
-        result = {'prediction': res}
         return jsonify(result)
+
 
     except Exception as e:
         print("Error:", str(e))
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
 
