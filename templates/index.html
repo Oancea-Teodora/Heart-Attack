@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -16,7 +17,27 @@
 
 <!-- Full Screen Image -->
 <div id="home">
-    <img src="../static/images/background4.png" alt="Full screen image" class="full-screen-image">
+    <img src="../static/images/background7.png" alt="Full screen image" class="full-screen-image">
+    <div class="container">
+        <span class="text first-text">Your health</span>
+        <span class="text sec-text">matters!</span>
+    </div>
+    <script>
+        const text = document.querySelector(".sec-text");
+        const textLoad = () => {
+            setTimeout(() => {
+                text.textContent = "matters";
+            }, 0);
+            setTimeout(() => {
+                text.textContent = "is a priority";
+            }, 4000);
+            setTimeout(() => {
+                text.textContent = "is power";
+            }, 8000); //1s = 1000 milliseconds
+        }
+        textLoad();
+        setInterval(textLoad, 12000);
+    </script>
 </div>
 
 <!-- Form Section with Image in Background -->

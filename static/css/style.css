@@ -22,8 +22,9 @@
         .menu a {
             color: white;
             text-decoration: none;
-            margin: 0 197px;
+            margin: 0 190px;
             font-size: 22px;
+            font-weight: bold;
             transition: color 0.3s ease;
         }
         .menu a:hover {
@@ -105,6 +106,54 @@
             text-align: center;
         }
 
+        #home {
+            position: relative; /* Ensure this is set */
+            height: 100vh; /* Make sure it covers the full viewport height */
+        }
+        body {
+            font-family: 'Libre Franklin', sans-serif; /* Set the default font */
+        }
+        .container {
+            position: absolute;
+            bottom: 50px; /* Adjust to position it near the bottom of the image */
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden; /* Ensure content is hidden to show typing effect */
+            z-index: 10;
+        }
+        .container .text{
+            position: relative;
+            color: rgb(224, 173, 229);
+            font-size: 30px;
+            font-weight: 600;
+        }
+        .container .text.first-text{
+            color: rgb(195 112 218);
+        }
+        .text.sec-text:before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: inline-block;
+            background-color: rgb(47, 17, 79);
+            border-left: 2px solid rgb(224, 173, 229);
+            animation: animate 4s steps(12) infinite alternate;
+        }
+        @keyframes animate{
+            40%, 60%{
+                left: calc(100% + 4px);
+            }
+            100%{
+                left: 0%;
+            }
+        }
         /* Progress bar styles */
         #progress-bar-container {
             text-align: center;
