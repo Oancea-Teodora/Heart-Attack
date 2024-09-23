@@ -22,7 +22,7 @@
         .menu a {
             color: white;
             text-decoration: none;
-            margin: 0 190px;
+            margin: 0 12%;
             font-size: 22px;
             font-weight: bold;
             transition: color 0.3s ease;
@@ -76,18 +76,32 @@
         }
 
         .footer {
-            position: fixed;
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space items apart */
+            align-items: center; /* Center items vertically */
             bottom: 0;
             width: 100%;
-            height: 20px; /* Set footer height */
-            background-color: rgba(0, 0, 0, 0.5); /* Same color as the menu */
-            color: white;
-            text-align: right;
-            font-size: 7px; /* Set font size */
+            height: 25px; /* Set footer height */
+            background-color: rgb(54, 24, 70); /* Same color as the menu */
+            color: rgb(246, 226, 246);
+            font-size: 9px; /* Set font size */
             padding: 2px 17px; /* Add padding for visibility */
             box-sizing: border-box;
-            z-index: 100; /* Ensure footer stays on top */
+            z-index: 100;
             overflow: hidden; /* Prevent overflow */
+        }
+
+        .footer p {
+            margin: 0; /* Remove default margins */
+        }
+
+        .footer .left {
+            flex: 1; /* Allow left section to grow */
+            text-align: center; /* Center text */
+        }
+
+        .footer .right {
+            text-align: right; /* Align text to the right */
         }
 
         button {
