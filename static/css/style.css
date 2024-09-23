@@ -81,10 +81,10 @@
             align-items: center; /* Center items vertically */
             bottom: 0;
             width: 100%;
-            height: 25px; /* Set footer height */
+            height: 50px; /* Set footer height */
             background-color: rgb(54, 24, 70); /* Same color as the menu */
             color: rgb(246, 226, 246);
-            font-size: 9px; /* Set font size */
+            font-size: 14px; /* Set font size */
             padding: 2px 17px; /* Add padding for visibility */
             box-sizing: border-box;
             z-index: 100;
