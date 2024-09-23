@@ -67,21 +67,12 @@ def predict():
         numeric_var = ["age", "trtbps", "chol", "thalach", "oldpeak"]
         categoric_var = ["sex", "cp", "fbs", "rest_ecg", "exang", "slope", "ca", "thal", "target"]
 
-        df[numeric_var].describe()
 
         sns.distplot(df["age"], hist_kws=dict(linewidth=1, edgecolor="k"))
 
         sns.distplot(df["trtbps"], hist_kws=dict(linewidth=1, edgecolor="k"), bins=20)
 
         sns.distplot(df["chol"], hist=False)
-
-        x, y = plt.subplots(figsize=(8, 6))
-        sns.distplot(df["thalach"], hist=False, ax=y)
-        y.axvline(df["thalach"].mean(), color="r", ls='--')
-
-        x, y = plt.subplots(figsize=(8, 6))
-        sns.distplot(df["oldpeak"], hist_kws=dict(linewidth=1, edgecolor="k"), bins=20, ax=y)
-        y.axvline(df["oldpeak"].mean(), color="r", ls="--")
 
         numeric_axis_name = ["Age of the Patient", "Resting Blood Pressure", "Cholesterol",
                              "Maximum Heart Rate Achieved", "ST Depression"]
@@ -93,30 +84,8 @@ def predict():
                                "Exercise Induced Angina", "The Slope of ST Segment", "Number of Major Vessels", "Thal",
                                "Target"]
 
-        list(zip(categoric_var, categoric_axis_name))
-
-        df["cp"].value_counts()
-
-        list(df["cp"].value_counts())
-
-        list(df["cp"].value_counts().index)
-
         title_font = {"family": "arial", "color": "red", "weight": "bold", "size": 14}
         axis_font = {"family": "arial", "color": "blue", "weight": "bold", "size": 12}
-
-        for i, z in list(zip(categoric_var, categoric_axis_name)):
-            fig, ax = plt.subplots(figsize=(8, 6))
-
-            observation_values = list(df[i].value_counts().index)
-            total_observation_values = list(df[i].value_counts())
-            ax.pie(total_observation_values, labels=observation_values, autopct='%1.1f%%', startangle=110,
-                   labeldistance=1.1)
-            ax.axis("equal")
-            plt.title((i + "(" + z + ")"), fontdict=title_font)
-            plt.legend()
-            # plt.show()
-
-        df[df["thal"] == 0]
 
         df["thal"] = df["thal"].replace(0, np.nan)
 
@@ -149,18 +118,6 @@ def predict():
         from sklearn.preprocessing import RobustScaler
         df.drop(["chol", "fbs", "rest_ecg"], axis=1, inplace=True, errors='ignore')
 
-        fig, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4, figsize=(20, 6))
-        ax1.boxplot(df["age"])
-        ax1.set_title("age")
-        ax2.boxplot(df["trtbps"])
-        ax2.set_title("trtbps")
-        ax3.boxplot(df["thalach"])
-        ax3.set_title("thalach")
-        ax4.boxplot(df["oldpeak"])
-        ax4.set_title("oldpeak")
-
-        # plt.show()
-
         from scipy import stats
         from scipy.stats import zscore
         from scipy.stats.mstats import winsorize
@@ -169,21 +126,8 @@ def predict():
         from groq import Groq
 
         z_trtbps = zscore(df["trtbps"])
-        df[z_trtbps > 2][["trtbps"]]
-
-        df[z_trtbps > 2][["trtbps"]].min()
-
-        df[df["trtbps"] < 170].trtbps.max()
-
         winsorize_percentile_trtbps = (stats.percentileofscore(df["trtbps"], 165)) / 100
-
-        1 - winsorize_percentile_trtbps
-
         trtbps_winsorize = winsorize(df.trtbps, (0, (1 - winsorize_percentile_trtbps)))
-
-        plt.boxplot(trtbps_winsorize)
-        plt.xlabel("trtbps_winsorize", color="b")
-
         df["trtbps_winsorize"] = trtbps_winsorize
 
         def iqr(df, var):
@@ -194,7 +138,6 @@ def predict():
             upper_v = q3 + (1.5 * diff)
             return df[(df[var] < lower_v) | (df[var] > upper_v)]
 
-        thalach_out = iqr(df, "thalach")
         df.drop([272], axis=0, inplace=True)
         df["thalach"][270:275]
         plt.boxplot(df['thalach'])
@@ -213,9 +156,6 @@ def predict():
 
         win_per_oldpeak = (stats.percentileofscore(df["oldpeak"], 4)) / 100
         oldpeak_win = winsorize(df.oldpeak, (0, (1 - win_per_oldpeak)))
-
-        plt.boxplot(oldpeak_win)
-        plt.xlabel("oldpeak_winsorize", color="b")
 
         df["oldpeak_winsorize"] = oldpeak_win
         df.drop(["trtbps", "oldpeak"], axis=1, inplace=True)
@@ -346,12 +286,9 @@ def predict():
 
         return jsonify(result)
 
-
     except Exception as e:
         print("Error:", str(e))
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
-

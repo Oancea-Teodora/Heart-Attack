@@ -27,44 +27,45 @@
         <form id="prediction-form">
             <div class="form-group">
                 <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required>
+                <input type="number" id="age" name="age" min="1" max="120" required>
             </div>
             <div class="form-group">
                 <label for="sex">Sex (0 = Female, 1 = Male):</label>
-                <input type="number" id="sex" name="sex" required>
+                <input type="number" id="sex" name="sex" min="0" max="1" required>
             </div>
             <div class="form-group">
                 <label for="cp">Chest Pain Type (0 = Asymptomatic, 1 = Typical Angina, 2 = Atypical Angina, 3 = Non-anginal Pain):</label>
-                <input type="number" id="cp" name="cp" required>
+                <input type="number" id="cp" name="cp" min="0" max="3" required>
             </div>
             <div class="form-group">
-                <label for="thalach">Maximum Heart Rate Achieved:</label>
-                <input type="number" id="thalach" name="thalach" required>
+                <label for="thalach">Maximum Heart Rate Achieved (between 60 and 200):</label>
+                <input type="number" id="thalach" name="thalach" min="60" max="200" required>
             </div>
             <div class="form-group">
                 <label for="exang">Exercise Induced Angina (0 = No, 1 = Yes):</label>
-                <input type="number" id="exang" name="exang" required>
+                <input type="number" id="exang" name="exang" min="0" max="1" required>
             </div>
             <div class="form-group">
                 <label for="slope">Slope of the Peak Exercise ST Segment (0 = Downsloping, 1 = Flat, 2 = Upsloping):</label>
-                <input type="number" id="slope" name="slope" required>
+                <input type="number" id="slope" name="slope" min="0" max="2" required>
             </div>
             <div class="form-group">
                 <label for="ca">Number of Major Vessels (0-3):</label>
-                <input type="number" id="ca" name="ca" required>
+                <input type="number" id="ca" name="ca" min="0" max="3" required>
             </div>
             <div class="form-group">
                 <label for="thal">Thalassemia Type (1 = Fixed Defect, 2 = Normal, 3 = Reversible Defect):</label>
-                <input type="number" id="thal" name="thal" required>
+                <input type="number" id="thal" name="thal" min="1" max="3" required>
             </div>
             <div class="form-group">
-                <label for="trtbps">Resting Blood Pressure (in mm Hg):</label>
-                <input type="number" id="trtbps" name="trtbps" required>
+                <label for="trtbps">Resting Blood Pressure (in mm Hg, between 90 and 180):</label>
+                <input type="number" id="trtbps" name="trtbps" min="90" max="180" required>
             </div>
             <div class="form-group">
                 <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest (e.g., 0.0-5.0):</label>
-                <input type="number" step="0.1" id="oldpeak" name="oldpeak" required>
+                <input type="number" step="0.1" id="oldpeak" name="oldpeak" min="0" max="5" required>
             </div>
+
 
             <button type="submit">Predict</button>
         </form>
@@ -89,51 +90,70 @@
     <div style="max-width: 800px; margin: 0 auto; text-align: left;">
         <h3>1. Age</h3>
         <p>The age of the person in years. Heart attack risk increases with age.</p>
+        <p><strong>Valid Range:</strong> [1, 120]</p>
 
         <h3>2. Sex</h3>
         <p>0: Female, 1: Male. Men are generally at higher risk, especially at younger ages.</p>
+        <p><strong>Valid Range:</strong> [0, 1] </p>
 
         <h3>3. Chest Pain Type (CP)</h3>
+        <p>Chest pain types indicate the nature of heart-related discomfort.</p>
         <ul>
             <li>0: Asymptomatic – No symptoms</li>
             <li>1: Typical Angina – Pain with exertion</li>
             <li>2: Atypical Angina – Pain without exertion</li>
             <li>3: Non-anginal Pain – Pain not related to the heart</li>
         </ul>
+        <p><strong>Valid Range:</strong> [0, 3]</p>
 
         <h3>4. Maximum Heart Rate (Thalach)</h3>
         <p>The highest heart rate achieved during exercise. A lower rate can indicate heart issues.</p>
+        <p><strong>Valid Range:</strong> [60, 200] (Average: 160 bpm)</p>
 
         <h3>5. Exercise-Induced Angina (Exang)</h3>
         <p>0: No angina, 1: Angina during exercise. Chest pain during exercise can indicate blocked arteries.</p>
+        <p><strong>Valid Range:</strong> [0, 1]</p>
 
         <h3>6. ST Segment Slope (Slope)</h3>
+        <p>Indicates the slope of the ST segment during exercise.</p>
         <ul>
             <li>0: Downsloping – Sign of worsening heart conditions</li>
             <li>1: Flat – Possible concern</li>
             <li>2: Upsloping – Typically normal</li>
         </ul>
+        <p><strong>Valid Range:</strong> [0, 2] </p>
 
         <h3>7. Major Vessels (Ca)</h3>
         <p>Number of major coronary arteries (0-3) visible via imaging. More vessels visible often means higher risk.</p>
+        <p><strong>Valid Range:</strong> [0, 3] </p>
 
         <h3>8. Thalassemia (Thal)</h3>
+        <p>Indicates the type of thalassemia.</p>
         <ul>
             <li>1: Fixed Defect – Permanent heart defect</li>
             <li>2: Normal – No defect</li>
             <li>3: Reversible Defect – Temporary heart issue under stress</li>
         </ul>
+        <p><strong>Valid Range:</strong> [1, 3] </p>
 
         <h3>9. Resting Blood Pressure (Trtbps)</h3>
         <p>The person's blood pressure at rest. High blood pressure is a major risk factor for heart disease.</p>
+        <p><strong>Valid Range:</strong> [90, 180] mm Hg (Average: 120 mm Hg)</p>
 
         <h3>10. ST Depression (Oldpeak)</h3>
-        <p>ST depression during exercise, compared to rest. Higher values can indicate poor blood flow to the heart.</p>
+        <p>Indicates ST depression during exercise compared to rest. Higher values can indicate poor blood flow to the heart.</p>
+        <p><strong>Valid Range:</strong> [0.0, 5.0] (Average: 1.5)</p>
     </div>
 </div>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>Website made by Teodora</p>
+</footer>
+
 
 </html>
