@@ -267,19 +267,6 @@ def predict():
             "Keep nurturing your social connections; they’re beneficial for your mental and heart health!"
         ]
 
-        '''
-        import google.generativeai as genai
-        import weave
-        def format_res(text):
-            return text.replace('•', '  *')
-        gemini_api_key = "AIzaSyAfYcmGj0Cu2sziMAkMZOP5aD8BNti4g9A"
-        genai.configure(api_key=gemini_api_key)
-        model = genai.GenerativeModel('gemini-pro')
-        project_name="Heart Attack"
-        wandb_name = project_name.replace(" ", "-")  # Replace spaces with dashes in name
-        weave.init(wandb_name)
-        '''
-
         if prediction == 1:
             #prompt=random.choice(high_risk)
             prompt="Generate a short message for someone at high risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
@@ -287,12 +274,6 @@ def predict():
             #prompt=random.choice(low_risk)
             prompt="Generate a short message for someone at low risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
 
-        '''
-        @weave.op()
-        def generate_text_with_gemini(model, query):
-            response = model.generate_content(query)
-            return response.text    
-        '''
 
         chat_completion = client.chat.completions.create(
         messages=[
