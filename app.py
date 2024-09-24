@@ -286,6 +286,68 @@ def predict():
         - ST depression induced by exercise: {oldpeak}
 
         Please provide specific and personalized advice for this patient, explicitly mentioning that the patient has {risk_status} of a heart attack. In no more than 5 concise sentences, offer assessment and advice using the given information about the patient. Do not include introductions, conclusions, or salutations, and ensure that your advice is strictly based on the patient's data.
+        
+        Documentation: Input Data Guide
+        1. Age
+        The age of the person in years. Heart attack risk increases with age.
+        
+        Valid Range: [1, 120]
+        
+        2. Sex
+        0: Female, 1: Male. Men are generally at higher risk, especially at younger ages.
+        
+        Valid Range: [0, 1]
+        
+        3. Chest Pain Type (CP)
+        Chest pain types indicate the nature of heart-related discomfort.
+        
+        0: Asymptomatic – No symptoms
+        1: Typical Angina – Pain with exertion
+        2: Atypical Angina – Pain without exertion
+        3: Non-anginal Pain – Pain not related to the heart
+        Valid Range: [0, 3]
+        
+        4. Maximum Heart Rate (Thalach)
+        The highest heart rate achieved during exercise. A lower rate can indicate heart issues.
+        
+        Valid Range: [60, 200] (Average: 160 bpm)
+        
+        5. Exercise-Induced Angina (Exang)
+        0: No angina, 1: Angina during exercise. Chest pain during exercise can indicate blocked arteries.
+        
+        Valid Range: [0, 1]
+        
+        6. ST Segment Slope (Slope)
+        Indicates the slope of the ST segment during exercise.
+        
+        0: Downsloping – Sign of worsening heart conditions
+        1: Flat – Possible concern
+        2: Upsloping – Typically normal
+        Valid Range: [0, 2]
+        
+        7. Major Vessels (Ca)
+        Number of major coronary arteries (0-3) visible via imaging. More vessels visible often means higher risk.
+        
+        Valid Range: [0, 3]
+        
+        8. Thalassemia (Thal)
+        Indicates the type of thalassemia.
+        
+        1: Fixed Defect – Permanent heart defect
+        2: Normal – No defect
+        3: Reversible Defect – Temporary heart issue under stress
+        Valid Range: [1, 3]
+        
+        9. Resting Blood Pressure (Trtbps)
+        The person's blood pressure at rest. High blood pressure is a major risk factor for heart disease.
+        
+        Valid Range: [90, 180] mm Hg (Average: 120 mm Hg)
+        
+        10. ST Depression (Oldpeak)
+        Indicates ST depression during exercise compared to rest. Higher values can indicate poor blood flow to the heart.
+        
+        Valid Range: [0.0, 5.0] 
+        
         """
 
         chat_completion = client.chat.completions.create(
