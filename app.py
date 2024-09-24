@@ -37,6 +37,8 @@ def predict():
 
         import warnings
         warnings.filterwarnings("ignore")
+        import matplotlib
+        matplotlib.use('Agg')
         import matplotlib.pyplot as plt
         import seaborn as sns
 
@@ -235,9 +237,9 @@ def predict():
         df_input = pd.DataFrame([input_data])
         # Predict using the model
         prediction = log_reg.predict(df_input)[0]
-        # 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
-       # client = Groq(api_key=os.environ.get("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"))
-       # client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+        os.environ["GROQ_API_KEY"] = "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"
+        client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
         high_risk = [
             "As you are at high risk of a heart attack, staying active is crucial. Aim for at least 150 minutes of moderate exercise each week.",
@@ -265,13 +267,33 @@ def predict():
             "Keep nurturing your social connections; they’re beneficial for your mental and heart health!"
         ]
 
-        if prediction == 1:
-            prompt=random.choice(high_risk)
-            #prompt="Generate a short message for someone at high risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
-        else:
-            prompt=random.choice(low_risk)
-            #prompt="Generate a short message for someone at low risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
         '''
+        import google.generativeai as genai
+        import weave
+        def format_res(text):
+            return text.replace('•', '  *')
+        gemini_api_key = "AIzaSyAfYcmGj0Cu2sziMAkMZOP5aD8BNti4g9A"
+        genai.configure(api_key=gemini_api_key)
+        model = genai.GenerativeModel('gemini-pro')
+        project_name="Heart Attack"
+        wandb_name = project_name.replace(" ", "-")  # Replace spaces with dashes in name
+        weave.init(wandb_name)
+        '''
+
+        if prediction == 1:
+            #prompt=random.choice(high_risk)
+            prompt="Generate a short message for someone at high risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
+        else:
+            #prompt=random.choice(low_risk)
+            prompt="Generate a short message for someone at low risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
+
+        '''
+        @weave.op()
+        def generate_text_with_gemini(model, query):
+            response = model.generate_content(query)
+            return response.text    
+        '''
+
         chat_completion = client.chat.completions.create(
         messages=[
         {
@@ -281,9 +303,9 @@ def predict():
         model = "llama3-8b-8192",
         )
         res= chat_completion.choices[0].message.content.strip()
-        '''
-        result = {'prediction': prompt}
 
+
+        result = {'prediction': res}
         return jsonify(result)
 
     except Exception as e:
