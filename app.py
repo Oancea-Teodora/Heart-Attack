@@ -273,21 +273,20 @@ def predict():
             risk_status = "low risk"
 
         prompt = f"""
-                You are a heart doctor and need to give specialized advice to a patient that has {risk_status} of a heart attack.
-                Here are some patient details:
-                - Age: {age}
-                - Sex: {"Male" if sex == 1 else "Female"}
-                - Resting blood pressure (average): {trtbps} mmHg
-                - Maximum heart rate achieved: {thalach}
-                - Exercise induced angina: {'Yes' if exang == 1 else 'No'}
-                - Slope of ST segment: {slope}
-                - Number of major vessels: {ca}
-                - Thalassemia: {thal}
-                - ST depression induced by exercise: {oldpeak}
+        You are a heart doctor and need to give specialized advice to a patient that has {risk_status} of a heart attack.
+        Here are some patient details:
+        - Age: {age}
+        - Sex: {"Male" if sex == 1 else "Female"}
+        - Resting blood pressure (average): {trtbps} mmHg
+        - Maximum heart rate achieved: {thalach}
+        - Exercise induced angina: {'Yes' if exang == 1 else 'No'}
+        - Slope of ST segment: {slope}
+        - Number of major vessels: {ca}
+        - Thalassemia: {thal}
+        - ST depression induced by exercise: {oldpeak}
 
-                Please provide specific and personalized advice for this patient, and explicitly mention that the patient has {risk_status} of a heart attack in your response.
-                """
-
+        Please provide specific and personalized advice for this patient, explicitly mentioning that the patient has {risk_status} of a heart attack. In no more than 5 concise sentences, offer assessment and advice using the given information about the patient. Do not include introductions, conclusions, or salutations, and ensure that your advice is strictly based on the patient's data.
+        """
 
         chat_completion = client.chat.completions.create(
         messages=[
