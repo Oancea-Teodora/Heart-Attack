@@ -268,11 +268,25 @@ def predict():
         ]
 
         if prediction == 1:
-            #prompt=random.choice(high_risk)
-            prompt="Generate a short message for someone at high risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
+            risk_status = "high risk"
         else:
-            #prompt=random.choice(low_risk)
-            prompt="Generate a short message for someone at low risk of heart attack. Please keep it general and do not include any names. Limit the message to 2-3 sentences."
+            risk_status = "low risk"
+
+        prompt = f"""
+                You are a heart doctor and need to give specialized advice to a patient that has {risk_status} of a heart attack.
+                Here are some patient details:
+                - Age: {age}
+                - Sex: {"Male" if sex == 1 else "Female"}
+                - Resting blood pressure (average): {trtbps} mmHg
+                - Maximum heart rate achieved: {thalach}
+                - Exercise induced angina: {'Yes' if exang == 1 else 'No'}
+                - Slope of ST segment: {slope}
+                - Number of major vessels: {ca}
+                - Thalassemia: {thal}
+                - ST depression induced by exercise: {oldpeak}
+
+                Please provide specific and personalized advice for this patient, and explicitly mention that the patient has {risk_status} of a heart attack in your response.
+                """
 
 
         chat_completion = client.chat.completions.create(
