@@ -286,6 +286,7 @@ def predict():
         - ST depression induced by exercise: {oldpeak}
 
         Please provide specific and personalized advice for this patient, explicitly mentioning that the patient has {risk_status} of a heart attack. In no more than 5 concise sentences, offer assessment and advice using the given information about the patient. Do not include introductions, conclusions, or salutations, and ensure that your advice is strictly based on the patient's data.
+        The advice should be in bullet points and use second-person language (e.g., "You should exercise"). Just the bullet points please!
         
         Documentation: Input Data Guide
         1. Age
@@ -358,7 +359,7 @@ def predict():
         } ],
         model = "llama3-8b-8192",
         )
-        res= chat_completion.choices[0].message.content.strip()
+        res= "You have "+ risk_status+ " of heart attack! \n"+chat_completion.choices[0].message.content.strip()
 
 
         result = {'prediction': res}
